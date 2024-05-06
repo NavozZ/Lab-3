@@ -4,88 +4,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_3
+namespace Question2
 {
     internal class Program
     {
         static void Main(string[] args)
-            public class Course
         {
-            private string courseName;
-            private string instructorName;
-            private double grade;
+            int accountNumber;
+            double bankBalance;
 
-            public Course(string courseName)
+            Console.WriteLine("Enter your bank account number");
+            accountNumber = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter your current bank balance");
+            bankBalance = Convert.ToDouble(Console.ReadLine());
+
+            BankAccount bankAccount1 = new BankAccount(accountNumber, bankBalance);
+
+            Console.WriteLine("Do you view account details? [Y/N]");
+            char select = Convert.ToChar(Console.ReadLine());
+            select = char.ToUpper(select);
+
+            if (select == 'Y')
             {
-                if (string.IsNullOrEmpty(courseName))
-                {
-                    throw new ArgumentException("Course name cannot be empty or null.");
-                }
-                this.courseName = courseName;
+                bankAccount1.accountDetails();
             }
-
-            public string CourseName => courseName;
-
-            public string Grade
+            else
             {
-                get
-                {
-                    return CalculateLetterGrade();
-                }
-            }
+                Console.WriteLine("Do you want to deposit money? [Y/N]");
+                select = Convert.ToChar(Console.ReadLine());
+                select = char.ToUpper(select);
 
-            public void SetInstructorName(string instructorName)
-            {
-                if (string.IsNullOrEmpty(instructorName))
+                if (select == 'Y')
                 {
-                    throw new ArgumentException("Instructor name cannot be empty or null.");
-                }
-                this.instructorName = instructorName;
-            }
-
-            private string CalculateLetterGrade()
-            {
-                if (grade < 0 || grade > 100)
-                {
-                    throw new ArgumentException("Grade must be between 0 and 100.");
-                }
-                if (grade >= 90)
-                {
-                    return "A";
-                }
-                else if (grade >= 80)
-                {
-                    return "B";
-                }
-                else if (grade >= 70)
-                {
-                    return "C";
-                }
-                else if (grade >= 60)
-                {
-                    return "D";
+                    bankAccount1.Deposit();
                 }
                 else
                 {
-                    return "F";
+                    Console.WriteLine("Thank you for banking with us.");
                 }
             }
 
-            public void SetGrade(double grade)
-            {
-                if (grade < 0 || grade > 100)
-                {
-                    throw new ArgumentException("Grade must be between 0 and 100.");
-                }
-                this.grade = grade;
-            }
 
-            public void PrintCourseInfo()
-            {
-                Console.WriteLine($"Course: {CourseName}");
-                Console.WriteLine($"Instructor: {instructorName}");
-                Console.WriteLine($"Letter Grade: {Grade}");
-            }
+        }
+    }
+
+    class BankAccount
+    {
+        public int AccountNumber;
+        public double Balance;
+
+        public BankAccount(int AccountNumber, double Balance)
+        {
+            this.AccountNumber = AccountNumber;
+            this.Balance = Balance;
+            Console.WriteLine("Account created successfully!!");
+            Console.WriteLine();
+        }
+
+        public void accountDetails()
+        {
+            Console.WriteLine("Account number: " + AccountNumber);
+            Console.WriteLine("Account balance: " + Balance);
+            Console.WriteLine();
+        }
+
+        public void Deposit()
+        {
+            Console.WriteLine("Enter amount you want to deposit");
+            double depositValue = Convert.ToDouble(Console.ReadLine());
+            Balance += depositValue;
+            Console.WriteLine("Depossited Rs. " + depositValue);
+            checkBalance();
+            Console.WriteLine();
+
+        }
+
+        public void checkBalance()
+        {
+            Console.WriteLine("The balance of account number " + AccountNumber + " is: Rs. " + Balance);
         }
     }
 }
