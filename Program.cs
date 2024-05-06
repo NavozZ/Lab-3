@@ -4,85 +4,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Question2
+namespace Question4
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int accountNumber;
-            double bankBalance;
+            TemperatureTracker week1 = new TemperatureTracker();
 
-            Console.WriteLine("Enter your bank account number");
-            accountNumber = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Enter your current bank balance");
-            bankBalance = Convert.ToDouble(Console.ReadLine());
-
-            BankAccount bankAccount1 = new BankAccount(accountNumber, bankBalance);
-
-            Console.WriteLine("Do you view account details? [Y/N]");
-            char select = Convert.ToChar(Console.ReadLine());
-            select = char.ToUpper(select);
-
-            if (select == 'Y')
-            {
-                bankAccount1.accountDetails();
-            }
-            else
-            {
-                Console.WriteLine("Do you want to deposit money? [Y/N]");
-                select = Convert.ToChar(Console.ReadLine());
-                select = char.ToUpper(select);
-
-                if (select == 'Y')
-                {
-                    bankAccount1.Deposit();
-                }
-                else
-                {
-                    Console.WriteLine("Thank you for banking with us.");
-                }
-            }
-
-
+            week1.storeTemp();
+            Console.WriteLine();
+            week1.weekReport();
         }
     }
 
-    class BankAccount
+    class TemperatureTracker
     {
-        public int AccountNumber;
-        public double Balance;
+        public double[] temperatureArray = new double[7];
 
-        public BankAccount(int AccountNumber, double Balance)
+
+        public void storeTemp()
         {
-            this.AccountNumber = AccountNumber;
-            this.Balance = Balance;
-            Console.WriteLine("Account created successfully!!");
+            Console.WriteLine("Enter the values of the temperature for this week");
+            for (int i = 0; i < 7; i++)
+            {
+                Console.WriteLine("Enter Temperature of day " + (i + 1) + ": ");
+                temperatureArray[i] = Convert.ToDouble(Console.ReadLine());
+
+            }
+
+            Console.WriteLine("Successfully stored data!");
+
+        }
+
+        public void weekReport()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                Console.WriteLine($"Day {i + 1}: {temperatureArray[i]} degrees Celsius");
+
+
+            }
             Console.WriteLine();
-        }
-
-        public void accountDetails()
-        {
-            Console.WriteLine("Account number: " + AccountNumber);
-            Console.WriteLine("Account balance: " + Balance);
-            Console.WriteLine();
-        }
-
-        public void Deposit()
-        {
-            Console.WriteLine("Enter amount you want to deposit");
-            double depositValue = Convert.ToDouble(Console.ReadLine());
-            Balance += depositValue;
-            Console.WriteLine("Depossited Rs. " + depositValue);
-            checkBalance();
-            Console.WriteLine();
 
         }
 
-        public void checkBalance()
-        {
-            Console.WriteLine("The balance of account number " + AccountNumber + " is: Rs. " + Balance);
-        }
     }
 }
+
+       
